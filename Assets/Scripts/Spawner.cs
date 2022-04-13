@@ -5,61 +5,67 @@ using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
 {
+    public static Spawner Instance { get; private set; }
     public GameObject[] PrefabsOfPlanets=new GameObject[5];
     public GameObject[] PlanetsOnDisplay = new GameObject[4];
     public GameObject PointOfSpawn;
-    public ScriptForCheck scriptForCheck;
-    public MoveControler moveControler;
     public bool isSpawned=false;
     public int NumberOfSpawned, mnojitel=1;
     // Start is called before the first frame update
+    public void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
-        PlanetsOnDisplay[0] = GameObject.Find("MainObject");        
-        PlanetsOnDisplay[1] = PrefabsOfPlanets[Random.Range(0, 4)];
-        PlanetsOnDisplay[2] = PrefabsOfPlanets[Random.Range(0, 4)];
-        PlanetsOnDisplay[3] = PrefabsOfPlanets[Random.Range(0, 4)];
+        //------------Внимание! так, как указано ниже, делать не стоит------------------- 
+        //PlanetsOnDisplay[0] = PrefabsOfPlanets[Random.Range(0, 4)];        
+        //Instantiate(PlanetsOnDisplay[0], transform.position, transform.rotation);
+        //данный способ создаст исключительно копию объекта из массива как самостоятельный объект, не ссылающийся на объект исходный
+        //то есть объект PlanetsOnDisplay[0] и объект, созданный методом Instantiate(PlanetsOnDisplay[0], transform.position, transform.rotation)
+        //будут совершенно РАЗНЫМИ
+        //-------------------------------------Конец-------------------------------------
         transform.position = new Vector3(transform.position.x +
-        Random.Range(6, 10), transform.position.y + Random.Range(10, 15));//начинаем создавать планеты,
+        Random.Range(6, 10), transform.position.y + Random.Range(34, 40));//начинаем создавать планеты,
         //считая от начального объекта
-        Instantiate(PlanetsOnDisplay[1], transform.position, transform.rotation);
+
+        PlanetsOnDisplay[0]=Instantiate(PrefabsOfPlanets[Random.Range(0, 4)], transform.position, transform.rotation);
         transform.position = new Vector3(transform.position.x +
-        (-1) * Random.Range(6, 10), transform.position.y + Random.Range(10, 15));//считаем уже от точки появления, создавая третью планету
-        Instantiate(PlanetsOnDisplay[2], transform.position, transform.rotation);
+        (-1) * Random.Range(6, 10), transform.position.y + Random.Range(34, 40));//считаем уже от точки появления, создавая третью планету
+        PlanetsOnDisplay[1] = Instantiate(PrefabsOfPlanets[Random.Range(0, 4)], transform.position, transform.rotation);
         transform.position = new Vector3(transform.position.x +
-        Random.Range(6, 10), transform.position.y + Random.Range(10, 15));//снова от точки поялвения, но для четвёртой планеты
-        Instantiate(PlanetsOnDisplay[3], transform.position, transform.rotation);
+        Random.Range(6, 10), transform.position.y + Random.Range(34, 40));
+        //снова от точки поялвения, но для четвёртой планеты
+        PlanetsOnDisplay[2]=Instantiate(PrefabsOfPlanets[Random.Range(0, 4)], transform.position, transform.rotation);
+        transform.position = new Vector3(transform.position.x +
+        (-1)*Random.Range(6, 10), transform.position.y + Random.Range(34, 40));
+        PlanetsOnDisplay[3]=Instantiate(PrefabsOfPlanets[Random.Range(0, 4)], transform.position, transform.rotation);
         mnojitel = -1;//используем данную переменную для смены направления появления планет, чтобы находиться примерно в одном коридоре
         NumberOfSpawned = 4;//контрольная переменная для скрипта-спануера
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (NumberOfSpawned<4)//данное условие позволяет поддерживать необходимое количество планет на экране 
        {
-            moveControler.PlanetToDelete = PlanetsOnDisplay[0];//передаём новую планету для удаления с экрана, 
+            transform.position = new Vector3(transform.position.x +
+            mnojitel*Random.Range(6, 10), transform.position.y + Random.Range(20, 25));
+            NumberOfSpawned++; 
             //а далее сдвигаем массив, добавляя новую планету
             for (int i = 0; i < 4; i++)//данный цикл сдвигает объекты влево, освобождая одно место для новой планеты
             {
 
-                if(i<4)//просто сдвигаем планеты, остающиеся на экране
+                if(i<3)//просто сдвигаем планеты, остающиеся на экране
                 {
                     PlanetsOnDisplay[i] =PlanetsOnDisplay[i+1];
                 }
-                else if(i==4)//добавляем на экран новую планету
+                else if(i==3)//добавляем на экран новую планету
                 {
-                    PlanetsOnDisplay[i] = PrefabsOfPlanets[Random.Range(0, 4)];
+                    PlanetsOnDisplay[i] = Instantiate(PrefabsOfPlanets[Random.Range(0, 4)], transform.position, transform.rotation);
                 }
             }
-            transform.position = new Vector3(transform.position.x +
-            mnojitel*Random.Range(6, 10), transform.position.y + Random.Range(10, 15));
-            Instantiate(PlanetsOnDisplay[4], transform.position, transform.rotation);
             mnojitel *= -1;
-            NumberOfSpawned++;
-            scriptForCheck.NextPlanet = PlanetsOnDisplay[1];
-            scriptForCheck.PreviousPlanet = PlanetsOnDisplay[0];
-            moveControler.CoordCX=
         }
     }
 }

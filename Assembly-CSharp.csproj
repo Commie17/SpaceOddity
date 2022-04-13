@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{5392C02D-44E8-1B74-C9E6-07806186491B}</ProjectGuid>
+    <ProjectGuid>{475715F5-1E16-13D8-E112-368A8AB3B822}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -59,7 +59,8 @@
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\ScriptForCheck.cs" />
     <Compile Include="Assets\Scripts\MoveControler.cs" />
-    <Compile Include="Assets\Scripts\EditorForParametrs.cs" />
+    <Compile Include="Assets\Scripts\MovingControler.cs" />
+    <Compile Include="Assets\Scripts\MainMenuControler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
