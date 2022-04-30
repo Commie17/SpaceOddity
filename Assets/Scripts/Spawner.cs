@@ -26,19 +26,19 @@ public class Spawner : MonoBehaviour
         //будут совершенно РАЗНЫМИ
         //-------------------------------------Конец-------------------------------------
         transform.position = new Vector3(transform.position.x +
-        Random.Range(6, 10), transform.position.y + Random.Range(34, 40));//начинаем создавать планеты,
+        Random.Range(10, 12), transform.position.y + Random.Range(48,52));//начинаем создавать планеты,
         //считая от начального объекта
 
         PlanetsOnDisplay[0]=Instantiate(PrefabsOfPlanets[Random.Range(0, 4)], transform.position, transform.rotation);
         transform.position = new Vector3(transform.position.x +
-        (-1) * Random.Range(6, 10), transform.position.y + Random.Range(34, 40));//считаем уже от точки появления, создавая третью планету
+        (-1) * Random.Range(10, 12), transform.position.y + Random.Range(48, 52));//считаем уже от точки появления, создавая третью планету
         PlanetsOnDisplay[1] = Instantiate(PrefabsOfPlanets[Random.Range(0, 4)], transform.position, transform.rotation);
         transform.position = new Vector3(transform.position.x +
-        Random.Range(6, 10), transform.position.y + Random.Range(34, 40));
+        Random.Range(10, 12), transform.position.y + Random.Range(48, 52));
         //снова от точки поялвения, но для четвёртой планеты
         PlanetsOnDisplay[2]=Instantiate(PrefabsOfPlanets[Random.Range(0, 4)], transform.position, transform.rotation);
         transform.position = new Vector3(transform.position.x +
-        (-1)*Random.Range(6, 10), transform.position.y + Random.Range(34, 40));
+        (-1)*Random.Range(10, 12), transform.position.y + Random.Range(48, 52));
         PlanetsOnDisplay[3]=Instantiate(PrefabsOfPlanets[Random.Range(0, 4)], transform.position, transform.rotation);
         mnojitel = -1;//используем данную переменную для смены направления появления планет, чтобы находиться примерно в одном коридоре
         NumberOfSpawned = 4;//контрольная переменная для скрипта-спануера
@@ -50,7 +50,7 @@ public class Spawner : MonoBehaviour
         if (NumberOfSpawned<4)//данное условие позволяет поддерживать необходимое количество планет на экране 
        {
             transform.position = new Vector3(transform.position.x +
-            mnojitel*Random.Range(6, 10), transform.position.y + Random.Range(20, 25));
+            mnojitel*Random.Range(10, 12), transform.position.y + Random.Range(48, 52));
             NumberOfSpawned++; 
             //а далее сдвигаем массив, добавляя новую планету
             for (int i = 0; i < 4; i++)//данный цикл сдвигает объекты влево, освобождая одно место для новой планеты
